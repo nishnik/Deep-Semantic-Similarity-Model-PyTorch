@@ -87,9 +87,9 @@ class CDSSM(nn.Module):
         # on a held-out data set. We're going to learn gamma's value by pretending it's
         # a single 1 x 1 kernel.
         with_gamma = self.learn_gamma(dots.resize(J+1, 1, 1))
-        # Finally, we use the softmax function to calculate P(D+|Q).
-        prob = F.softmax(with_gamma)
-        return prob
+        # You can use the softmax function to calculate P(D+|Q), but here we return the logits for the CrossEntropyLoss
+        # prob = F.softmax(with_gamma)
+        return with_gamma
 
 model = CDSSM()
 
